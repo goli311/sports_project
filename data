@@ -1,0 +1,2 @@
+user: email,status
+subscription : user_id,player_id

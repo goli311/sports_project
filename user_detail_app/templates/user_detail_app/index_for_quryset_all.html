@@ -1,0 +1,145 @@
+{% extends "user_detail_app/base.html" %}
+
+{% block content %}
+
+<!-- <div class="container" style="margin: top 1000px;"> -->
+<div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <h1 class="text-center mb-4">SubScription Form</h1>
+        <div class="col-md-5 mt-3">
+                <form class="needs-validation" method="POST" novalidate>  
+                    {% csrf_token %}    
+            
+                      <div class="col-md-11 mb-4">
+                          {% for field in form %}
+                          <div class="form-group">
+                            <label class="col-sm-5 col-form-label" for="{{ field.auto_id }}">
+                              {{ field.label }} :
+                            </label>
+                            <div class="col-sm-9">
+                              {{ field}}
+                              
+                              {% comment %}
+                                
+                              {% for error in field.errors %}
+                              <small id="{{ field.auto_id }}" class="text-danger">{{ error }}</small>
+                              {% endfor %}
+                              {% if field.help_text %}
+                              <small>{{ field.help_text|safe }}</small>
+                              {% endif %}
+                              {% endcomment %}
+                            </div>
+                          </div>
+                          {% endfor %}
+                      </div> 
+            
+                    
+                      <div class="row">
+                        <div class="col-8">
+                            <!-- <button class="btn btn-primary" id='Subscribe' type="submit">Subscribe</button> -->
+                            <button type="button" id='Subscribe' class="btn btn-primary btn-block">
+                              Subscribe</button>
+                        </div>
+                      
+                  </div>             
+                
+                </form>
+
+                <div class="form-group" id="palyers_data">
+
+                </div>
+            </div>
+        </div>
+  </div>
+
+ 
+{% endblock content %}
+{% block javascript %}
+<script>
+  $("#Subscribe").click(function () {
+    var email = $("#id_email").val()
+    //alert(email)
+    if (email.length  == 0){
+      alert("Please Enter Email.");
+      return false;
+    }
+
+    $.ajax({
+      url: "{% url 'user_detail_app:register_email' %}",
+      type: 'POST',
+      data: {
+          email: `${email}`,
+          "csrfmiddlewaretoken": '{{ csrf_token }}' ,
+          dataType: "html"
+      }
+      }).done(function (response) {
+        //alert(response)
+        console.log('successs....response......')
+        var json_data = JSON.parse(response)
+        //alert(json_data)
+        console.log(json_data)
+        //console.log(json_data['email_get'])
+        var email_data=JSON.parse(json_data['players_get'])
+        var  div_data='<form>'
+        for (key in email_data) {
+          //console.log(email_data[key])
+          //console.log(email_data[key]['fields']['name'],email_data[key]['pk'],email_data[key]['fields']['status'])
+          //palyers_data
+          
+          div_data+='<div class="form-group form-check"><input type="checkbox" name="player_data[]"  class="form-check-input" id="'+email_data[key]['pk']+'"><label class="form-check-label" for="'+email_data[key]['fields']['name']+'">'+email_data[key]['fields']['name']+'</label></div>'
+          
+          }
+          div_data+='</form>'
+          div_data += "<div class='form-group'><button id='save_players' class='btn btn-success' type='button'>Save</button></div>"
+          //console.log(div_data)
+        $("#palyers_data").html(div_data)
+      }).fail(function (response) {
+          alert("Error in fetching students")
+      })
+
+      $(document).on('click', '#save_players', function () {
+        //$(this).attr("disabled","disabled")
+        //$(this).text("Saving Players Choice...")
+        console.log('Save clicked.........')
+        //var palyers_data1 = $("input[name='palyers_data[]']")
+        //console.log(palyers_data1)
+        var palyers_data = $('input[name="player_data[]"]').map(function () {
+          console.log('in map function.......')
+          //console.log($(this).is(":checked"))
+          if ($(this).is(":checked")){
+          return {'id':$(this).attr("id"), 'status': 1};
+
+          }
+          return {'id':$(this).attr("id"), 'status': 0};
+
+        }).get()
+        console.log(palyers_data)
+        palyers_data = JSON.stringify(palyers_data)
+        $.ajax({
+          url: "{% url 'user_detail_app:save_players' %}",
+          type: 'POST',
+          data: {
+            email: `${email}`,
+            palyers_data:palyers_data,
+            "csrfmiddlewaretoken": '{{ csrf_token }}' ,
+      
+              }
+          }).done(function (response) {
+              if (response == 'OK'){
+                  //alert("Saved")
+                  console.log("Saved")
+              }else{
+                  alert("Error. Please try again")
+              }
+              location.reload()
+              
+          }).fail(function (response) {
+              alert("Error in saving attendance")
+          })
+      })
+
+  });
+
+  
+</script>
+{% endblock javascript %}
