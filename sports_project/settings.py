@@ -88,20 +88,20 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'Tony1$sportsproject',                      # Or path to database file if using sqlite3.
-        'USER': 'Tony1',                      # Not used with sqlite3.
-        'PASSWORD': 'Test@1532',                  # Not used with sqlite3.
-        'HOST': 'Tony1.mysql.pythonanywhere-services.com',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',  
+        # 'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        # 'NAME': 'Tony1$sportsproject',                      # Or path to database file if using sqlite3.
+        # 'USER': 'Tony1',                      # Not used with sqlite3.
+        # 'PASSWORD': 'Test@1532',                  # Not used with sqlite3.
+        # 'HOST': 'Tony1.mysql.pythonanywhere-services.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        # 'PORT': '',  
 
 
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        # 'NAME': 'd3pbg9hs4v0rfk',                      # Or path to database file if using sqlite3.
-        # 'USER': 'dgamuwzdecjuqq',                      # Not used with sqlite3.
-        # 'PASSWORD': '2024ac4dd2b7f98cf82fe1a45bef046d5eefcf7757e005eaffe51146fb81b53b',                  # Not used with sqlite3.
-        # 'HOST': 'ec2-23-23-182-238.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
-        # 'PORT': '5432',  
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'd3pbg9hs4v0rfk',                      # Or path to database file if using sqlite3.
+        'USER': 'dgamuwzdecjuqq',                      # Not used with sqlite3.
+        'PASSWORD': '2024ac4dd2b7f98cf82fe1a45bef046d5eefcf7757e005eaffe51146fb81b53b',                  # Not used with sqlite3.
+        'HOST': 'ec2-23-23-182-238.compute-1.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',  
     }
 }
 
