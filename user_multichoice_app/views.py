@@ -67,7 +67,7 @@ def user_subscribe(request):
                 # return HttpResponse('Success...........')
                 # return render(request,'user_multichoice_app/index.html',context)
                 messages.success(request, f'Choices Saved.........')
-                return redirect(reverse('user_multichoice_app:user_subscribe'))
+                return redirect(reverse('user_multichoice_app:index'))
                 # return redirect(reverse('user_multichoice_app:index'))         
             else:
                 context={'form':form} 
@@ -103,8 +103,9 @@ def user_subscribe(request):
                 player_choice_obj.name.remove(*remove_id) # remove unselected choices          
                 # return HttpResponse('Success............')      
                 messages.success(request, f'Choices Saved.........')
-                return render(request,'user_multichoice_app/index.html',context) 
-                # return redirect(reverse('user_multichoice_app:index'))                
+                
+                # return render(request,'user_multichoice_app/index.html',context) 
+                return redirect(reverse('user_multichoice_app:index'))                
 
         return render(request,'user_multichoice_app/index.html',context)   
 
