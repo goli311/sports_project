@@ -30,8 +30,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'django-insecure-%m)b289uro(f4dak$!94j
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
-DEBUG = os.environ.get('DEBUG',True)
-# DEBUG = config('DEBUG', default=True, cast=bool)
+# DEBUG = os.environ.get('DEBUG',True)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 
 ALLOWED_HOSTS = ['sportsproject1.herokuapp.com']
